@@ -1,0 +1,58 @@
+openapi: 3.0.3
+info:
+  title: Hello world service
+  description: |-
+    This is a sample to demonstrate the usage of openAPI 3.0 specification. 
+    
+    Some useful links:
+    - [OpenAPI initiative](https://www.openapis.org/)
+    - [Swagger](https://swagger.io/specification/)
+  version: 1.0.0
+tags:
+  - name: Salutation
+    description: Everything about your salutation
+
+paths:
+  /hello:
+    get:
+      tags:
+        - hello
+      summary: get string representing a salutation
+      description: Get salutation
+      operationId: getHello
+      parameters:
+        - name: isUniverse
+          in: query
+          description: Specify if the caller is universe.
+          schema:
+            type: boolean
+            default: false
+          required: false
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hello'
+      security:
+        - api_key: [ ]
+
+components:
+  schemas:
+    Hello:
+      type: object
+      properties:
+        salutation:
+          type: string
+          description: Order Status
+          example: Hello World
+          enum:
+            - Hello World
+            - Hello Universe
+
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
